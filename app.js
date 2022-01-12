@@ -9,7 +9,8 @@ const main = async () => {
     let opt = '';
     const tasks = new Tasks();
     const dbTasks = readDB();
-    tasks._list = dbTasks;
+
+    if(dbTasks) tasks._list = dbTasks; //cargo las tareas del json
 
     do {
         // opt = await showMenu();
@@ -22,11 +23,11 @@ const main = async () => {
                 console.log(`\nSe ha creado la tarea ${ JSON.stringify(newTask) }`);
             break;
             case '2':
-                console.log(tasks.listArr);   
+                tasks.finalList();  //listo las tareas 
             break;    
         };
 
-        saveDB(tasks._list);
+        saveDB(tasks._list); //guardo las tareas en el json
 
         if(opt !== '0') await inquirerPause();
         

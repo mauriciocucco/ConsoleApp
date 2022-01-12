@@ -20,6 +20,14 @@ class Tasks {
 
         return task;
     }
+
+    finalList() {
+        this.listArr.map((task, index) => {
+            const indexStr = task.completedAt ? `${(index + 1 + '.').green}` : `${(index + 1 + '.').red}`;
+
+            console.log(`${indexStr} ${task.desc} :: ${task.completedAt ? `${'Completada'.green}` : `${'Pendiente'.red}`}`);
+        })
+    }
 }
 
 module.exports = Tasks;
