@@ -1,7 +1,7 @@
 {
-  "name": "04-tareas-hacer",
+  "name": "console-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "Una aplicación interactiva de Node que usa la consola para manipular una lista de tareas.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
