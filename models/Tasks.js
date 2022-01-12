@@ -21,11 +21,45 @@ class Tasks {
         return task;
     }
 
-    finalList() {
-        this.listArr.map((task, index) => {
-            const indexStr = task.completedAt ? `${(index + 1 + '.').green}` : `${(index + 1 + '.').red}`;
+    showTasksList(list = this.listArr, filtered = false) {
+        if(list.length === 0 && filtered){
+            return console.log('\nNo hay tareas'.magenta);
+        }
 
-            console.log(`${indexStr} ${task.desc} :: ${task.completedAt ? `${'Completada'.green}` : `${'Pendiente'.red}`}`);
+        list.forEach((task, index) => {
+            const indexStr = `${(index + 1 + '.').green}`;
+
+            console.log(`${indexStr} ${task.desc} :: ${!task.completedAt ? 'Pendiente'.red : (filtered)? `${task.completedAt}`.green : 'Completada'.green}`);
+        })
+    }
+
+    filterTasksList(completed = true) {
+        const filteredList = completed ? this.listArr.filter(task => task.completedAt) : this.listArr.filter(task => !task.completedAt);
+
+        this.showTasksList(filteredList, true);
+    }
+
+    deleteTask(id = '') {
+        if(this._list[id]) {
+            delete this._list[id];
+
+            return true;
+        }
+
+        return false
+    }
+
+    changeTasksStatus(idsArr = []) {
+        idsArr.forEach(id => {
+            if(this._list[id] && !this._list[id].completedAt) {
+                this._list[id].completedAt = new Date().toISOString();
+            }
+        })
+
+        this.listArr.forEach(task => {
+            if(!idsArr.includes(task.id)) {
+                this._list[task.id].completedAt = null;
+            }
         })
     }
 }
